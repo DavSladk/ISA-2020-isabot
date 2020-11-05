@@ -1,5 +1,4 @@
 #include <iostream>
-#include "Options.h"
 #include "isabot.h"
 
 using namespace std;
