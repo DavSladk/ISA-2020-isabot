@@ -1,4 +1,4 @@
-.PHONY: all clean default_target test build run cmake
+.PHONY: all clean default_target test build run cmake pack
 
 default_target: all
 
@@ -14,8 +14,10 @@ run:
 	./build/isabot
 
 clean:
-	rm ./build -fr
+	rm ./build isabot xsladk07.tar -fr
 
 test:
 	echo "no tests"
 
+pack:
+	tar -cf xsladk07.tar README.md Makefile CMakeLists.txt src/* headers/*
