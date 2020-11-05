@@ -16,7 +16,7 @@ enum ErrorCodes
 };
 
 // custom exception class
-class CustomException : public std::exception
+class CustomException
 {
     public:
         CustomException(const std::string message, const ErrorCodes code);
