@@ -8,7 +8,7 @@ cmake:
 	mkdir build && cd build && cmake ..
 
 build:
-	cd build && make
+	cd build && cmake --build . && mv isabot ../isabot
 
 run:
 	./build/isabot
