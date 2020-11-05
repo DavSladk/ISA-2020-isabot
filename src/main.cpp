@@ -11,7 +11,7 @@ int main(int argc, char **argv)
     }
     catch (CustomException e)
     {
-        std::cout << e.Message() << std::endl;
+        std::cerr << e.Message() << std::endl;
     }
     return 0;
 }
