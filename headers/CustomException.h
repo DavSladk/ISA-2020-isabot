@@ -12,25 +12,16 @@ enum ErrorCodes
     FATAL_ERROR,
     OPTION_UNKNOW,
     OPTION_MISSING,
-    NOT_IMPLEMENTED,
-    PCAP_OPEN_LIVE_ERROR,
-    UNSOPPORTED_LINK_LAYER,
-    PCAP_COMPILE_ERROR,
-    PCAP_NEXT_ERROR,
-    PCAP_SETFILTER_ERROR,
-    GETIFADDR_ERROR,
-    NO_GLOBAL_IPV6,
-    SOCKET_ERROR,
-    FORK_ERROR
+    MISSING_TOKEN
 };
 
 // custom exception class
 class CustomException : public std::exception
 {
     public:
-        CustomException(const char *message, ErrorCodes code);
+        CustomException(const std::string message, const ErrorCodes code);
         ErrorCodes Code();
-        const char *Message();
+        std::string Message();
 
     private:
         ErrorCodes errorCode;

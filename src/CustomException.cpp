@@ -1,6 +1,6 @@
 #include "CustomException.h"
 
-CustomException::CustomException(const char *message, ErrorCodes code)
+CustomException::CustomException(const std::string message, const ErrorCodes code)
 {
     this->errorCode = code;
     this->errorMessage = message;
@@ -13,7 +13,7 @@ ErrorCodes CustomException::Code()
 }
 
 //returns pointer to message of exception
-const char *CustomException::Message()
+std::string CustomException::Message()
 {
-    return this->errorMessage.c_str();
+    return this->errorMessage;
 }
