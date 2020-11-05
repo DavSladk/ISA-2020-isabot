@@ -18,6 +18,8 @@ class Options
         bool tokenIsSet();
         std::string getToken();
 
+        void printOptionsValue();
+
     private:
         bool helpFlag = false;
         bool verboseFlag = false;

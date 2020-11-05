@@ -4,6 +4,7 @@ Options::Options(int argc, char** argv)
 {
     this->argc = argc;
     this->argv = argv;
+    parseOptions();
 }
 
 bool Options::helpIsSet()
@@ -28,6 +29,12 @@ std::string Options::getToken()
 
 void Options::parseOptions()
 {
+    if ( argc == 1 )
+    {
+        helpFlag = true;
+        return;
+    }
+
     for (int i = 1; i < this->argc; i++)
     {
         if ( strcmp(argv[i], "-h") == MATCH || strcmp(argv[i], "--help") == MATCH)
@@ -42,7 +49,7 @@ void Options::parseOptions()
         {
             if ( argc == i )
             {
-                throw new CustomException("Missing token after -t option.", MISSING_TOKEN);
+                throw CustomException("Missing token after -t option.", MISSING_TOKEN);
             }
             tokenFlag = true;
             token = argv[++i];
@@ -58,6 +65,13 @@ void Options::parseOptions()
 
     if ( token == "")
     {
-        throw new CustomException("Token can not be empty.", MISSING_TOKEN);
+        throw CustomException("Token can not be empty.", MISSING_TOKEN);
     }
+}
+
+void Options::printOptionsValue()
+{
+    std::cout << "-h/--help : " << helpFlag << std::endl;
+    std::cout << "-v/--verbose : " << verboseFlag << std::endl;
+    std::cout << "-t : " << tokenFlag << " - \"" << token << "\"" << std::endl;
 }
