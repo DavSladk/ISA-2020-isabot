@@ -20,4 +20,4 @@ test:
 	echo "no tests"
 
 pack:
-	tar -cf xsladk07.tar README.md Makefile CMakeLists.txt src/* headers/*
+	tar -cf xsladk07.tar README.md Makefile CMakeLists.txt manual.pdf src/* headers/*
