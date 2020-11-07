@@ -47,7 +47,7 @@ void Options::parseOptions()
         }
         else if ( strcmp(argv[i], "-t") == MATCH)
         {
-            if ( argc == i )
+            if ( argc == ++i )
             {
                 throw CustomException("Missing token after -t option.", MISSING_TOKEN);
             }
@@ -57,8 +57,8 @@ void Options::parseOptions()
         }
         else
         {
-            std::string msg = "Unknow parametr" + std::string(argv[i]) + "on position" + std::to_string(i);
-            throw new CustomException(msg, OPTION_UNKNOW);
+            std::string msg = "Unknow parametr " + std::string(argv[i]) + " on position " + std::to_string(i) + ".";
+            throw CustomException(msg, OPTION_UNKNOW);
         }
         
     }
