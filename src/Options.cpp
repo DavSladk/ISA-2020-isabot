@@ -47,12 +47,12 @@ void Options::parseOptions()
         }
         else if ( strcmp(argv[i], "-t") == MATCH)
         {
-            if ( argc == ++i )
+            if ( argc == i + 1 )
             {
                 throw CustomException("Missing token after -t option.", MISSING_TOKEN);
             }
             tokenFlag = true;
-            token = argv[++i];
+            token = argv[i + 1];
             i++;
         }
         else
@@ -71,7 +71,9 @@ void Options::parseOptions()
 
 void Options::printOptionsValue()
 {
+    std::cout << std::boolalpha;
     std::cout << "-h/--help : " << helpFlag << std::endl;
     std::cout << "-v/--verbose : " << verboseFlag << std::endl;
     std::cout << "-t : " << tokenFlag << " - \"" << token << "\"" << std::endl;
+    std::cout << std::noboolalpha;
 }
