@@ -19,6 +19,7 @@ class Options
         std::string getToken();
 
         void printOptionsValue();
+        void parseOptions();
 
     private:
         bool helpFlag = false;
@@ -28,8 +29,6 @@ class Options
 
         int argc;
         char** argv;
-
-        void parseOptions();
 
         const int MATCH = 0;
 };

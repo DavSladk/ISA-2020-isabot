@@ -4,7 +4,6 @@ Options::Options(int argc, char** argv)
 {
     this->argc = argc;
     this->argv = argv;
-    parseOptions();
 }
 
 bool Options::helpIsSet()
@@ -63,10 +62,6 @@ void Options::parseOptions()
         
     }
 
-    if ( token == "")
-    {
-        throw CustomException("Token can not be empty.", MISSING_TOKEN);
-    }
 }
 
 void Options::printOptionsValue()
