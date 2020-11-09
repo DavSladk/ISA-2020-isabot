@@ -3,7 +3,7 @@
 CustomException::CustomException(const std::string message, const ErrorCodes code)
 {
     this->errorCode = code;
-    this->errorMessage = message;
+    this->errorMessage = message + " Consult -h/--help for more information.";
 }
 
 //returns code of custom exception
