@@ -7,7 +7,8 @@
 // types of possible custom exceptions
 enum ErrorCodes
 {
-    OPTION_USED_MULTIPLE_TIMES = 1,
+    TEMP = 1,
+    OPTION_USED_MULTIPLE_TIMES,
     OPTION_REQUIRES_A_ARGUMENT,
     FATAL_ERROR,
     OPTION_UNKNOW,
