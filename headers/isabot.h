@@ -3,6 +3,7 @@
 
 #include "Options.h"
 #include "CustomException.h"
+#include "SecureSocket.h"
 
 class ISAbot
 {
