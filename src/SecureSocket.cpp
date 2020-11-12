@@ -34,6 +34,19 @@ void SecureSocket::SetUp()
     {
         throw CustomException("Connecting to server failed.", TEMP);
     }
+    std::cout << getGuild << std::endl;
+    if( BIO_puts(bio, getGuild.c_str()) > 0 )
+    {
+        std::cout << "suces\n";
+    }else std::cout << "fail\n";
+
+    while (1) {
+        memset(response, '\0', sizeof(response));
+        int n = BIO_read(bio, response, sizeof(response));
+        if (n <= 0) break; /* 0 is end-of-stream, < 0 is an error */
+        testResponse.append(response);
+  }
+  std::cout << testResponse << std::endl;
 }
 
 SecureSocket::~SecureSocket()

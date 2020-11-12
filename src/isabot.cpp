@@ -53,4 +53,6 @@ void ISAbot::run()
     setUpOptions();
     checkForHelp();
     checkForToken();
+    SecureSocket soc;
+    soc.SetUp();
 }

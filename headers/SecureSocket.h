@@ -5,6 +5,8 @@
 #include <openssl/err.h>
 
 #include <iostream>
+#include <cstring>
+
 
 #include "CustomException.h"
 
@@ -24,6 +26,12 @@ class SecureSocket
         char errorMessageBuffer[1024];
 
         int tmpReturnValue;
+
+        std::string getGuild = "GET /api/users/@me/guilds HTTP/1.1\nHost: discord.com\nConnection: close\nAuthorization: Bot Nzc1MzExNDIwMTcwNTY3Njkx.X6kfBw.cqj4oLQOzjRnwG3jI8o4aPWpQfo\n\n"; 
+        char response[1024];
+        std::string testResponse = "";
+
+        int test = 0;
 };
 
 #endif
