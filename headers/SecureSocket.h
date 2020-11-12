@@ -7,31 +7,47 @@
 #include <iostream>
 #include <cstring>
 
-
 #include "CustomException.h"
 
 class SecureSocket
 {
     public:
         void SetUp();
+        SecureSocket(std::string token);
+        void SendRequestForGuilds();
+        void ReceiveResponse();
+        void CheckResponseForOK();
+        void ParseOutGuildID();
+        void SendRequestForGuildChannels();
+        void clean();
+        void ParseOutChannelID();
+        void SendRequestForLastMessage();
+        void ParseOutLastMessageID();
+        void SendRequestForLastMessages();
         ~SecureSocket();
 
     private:
+        static const int BUFFER_SIZE = 1024;
+        static const int ID_SIZE = 18;
+
         const SSL_METHOD* method;
         SSL_CTX* ctx;
         BIO* bio;
         SSL* ssl;
+        
+        std::string token;
+        std::string guildID;
+        std::string channelID;
+        std::string lastMessageID;
 
-        unsigned long errorCode;
-        char errorMessageBuffer[1024];
 
-        int tmpReturnValue;
+        char responseBuffer[BUFFER_SIZE];
+        std::string response = "";
 
-        std::string getGuild = "GET /api/users/@me/guilds HTTP/1.1\nHost: discord.com\nConnection: close\nAuthorization: Bot Nzc1MzExNDIwMTcwNTY3Njkx.X6kfBw.cqj4oLQOzjRnwG3jI8o4aPWpQfo\n\n"; 
-        char response[1024];
-        std::string testResponse = "";
+        const std::string idPrefix = "{\"id\": \"";
+        const std::string channelName = "\"isa-bot\"";
+        const std::string lastMessagePrefix = "\"last_message_id\": \"";
 
-        int test = 0;
 };
 
 #endif

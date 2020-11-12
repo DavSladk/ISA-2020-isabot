@@ -44,15 +44,40 @@ void ISAbot::checkForToken()
     {
         throw CustomException("Token can not be empty.", MISSING_TOKEN);
     }
-    
-    
 }
-
 void ISAbot::run()
 {
     setUpOptions();
+
     checkForHelp();
     checkForToken();
-    SecureSocket soc;
+    SecureSocket soc(opt->getToken());
+    
     soc.SetUp();
+    soc.SendRequestForGuilds();
+    soc.ReceiveResponse();
+    soc.clean();
+    soc.CheckResponseForOK();
+    soc.ParseOutGuildID();
+
+    soc.SetUp();
+    soc.SendRequestForGuildChannels();
+    soc.ReceiveResponse();
+    soc.clean();
+    soc.CheckResponseForOK();
+    soc.ParseOutChannelID();
+
+    soc.SetUp();
+    soc.SendRequestForLastMessage();
+    soc.ReceiveResponse();
+    soc.clean();
+    soc.CheckResponseForOK();
+    soc.ParseOutLastMessageID();
+
+    soc.SetUp();
+    soc.SendRequestForLastMessages();
+    soc.ReceiveResponse();
+    soc.clean();
+    soc.CheckResponseForOK();
+
 }
