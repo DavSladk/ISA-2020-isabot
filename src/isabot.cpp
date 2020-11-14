@@ -34,6 +34,7 @@ void ISAbot::checkForHelp()
     )
     {
         printHelp();
+        exit(0);
     }
 }
 
