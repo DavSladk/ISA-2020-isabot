@@ -45,7 +45,6 @@ void SecureSocket::SetUp()
 void SecureSocket::SendRequestForGuilds()
 {
     std::string guildRequest = "GET /api/users/@me/guilds HTTP/1.1\nHost: discord.com\nConnection: close\nAuthorization: Bot " + token + "\n\n";
-    // std::cout << guildRequest << std::endl;
     if( BIO_puts(bio, guildRequest.c_str()) < 1 )
     {
         throw CustomException("Sending request for list of guilds failed.", TEMP);
@@ -64,7 +63,6 @@ std::string SecureSocket::ReceiveResponse()
         }
         tmp.append(responseBuffer);
     }
-    //std::cout << tmp << std::endl;
     return tmp;
 }
 
@@ -85,13 +83,11 @@ void SecureSocket::ParseOutGuildID()
         throw CustomException("Response does not have guild id.", TEMP);
     }
     guildID = response.substr(pos + idPrefix.size(), ID_SIZE);
-    // std::cout << guildID << std::endl;
 }
 
 void SecureSocket::SendRequestForGuildChannels()
 {
     std::string channelsRequest = "GET /api/guilds/" + guildID + "/channels HTTP/1.1\nHost: discord.com\nConnection: close\nAuthorization: Bot " + token + "\n\n";
-    // std::cout << channelsRequest <<  std::endl;
     if( BIO_puts(bio, channelsRequest.c_str()) < 1 )
     {
         throw CustomException("Sending request for list of guild channels.", TEMP);
@@ -107,13 +103,11 @@ void SecureSocket::ParseOutChannelID()
     tmp = response.substr(0, pos);
     pos = tmp.rfind(idPrefix, tmp.size());
     channelID = tmp.substr(pos + idPrefix.size(), ID_SIZE);
-    // std::cout << channelID << std::endl;
 }
 
 void SecureSocket::SendRequestForLastMessage()
 {
     std::string channelRequest = "GET /api/channels/" + channelID + "/messages?limit=1 HTTP/1.1\nHost: discord.com\nConnection: close\nAuthorization: Bot " + token + "\n\n";
-    //std::cout << channelRequest <<  std::endl;
     if( BIO_puts(bio, channelRequest.c_str()) < 1 )
     {
         throw CustomException("Sending request for list of guild channels.", TEMP);
@@ -132,8 +126,6 @@ std::string SecureSocket::ParseOutLastMessageID()
         return lastMessageID;
     }
     tmp = response.substr(pos + idPrefix.size(), ID_SIZE);
-    //std::cout << lastMessageID << std::endl;
-    std::cout << "ahoj\n";
 
     return tmp;
 }
@@ -141,7 +133,6 @@ std::string SecureSocket::ParseOutLastMessageID()
 void SecureSocket::SendRequestForLastMessages()
 {
     std::string messagesRequest = "GET /api/channels/" + channelID + "/messages?after=" + lastMessageID + "&limit=100 HTTP/1.1\nHost: discord.com\nConnection: close\nAuthorization: Bot " + token + "\n\n";
-    //std::cout << messagesRequest <<  std::endl;
     if( BIO_puts(bio, messagesRequest.c_str()) < 1 )
     {
         throw CustomException("Sending request for list of guild channels.", TEMP);
@@ -152,13 +143,10 @@ bool SecureSocket::CheckForNoNewMessages()
 {
     std::string::size_type tmp;
     tmp = response.find("\r\n\r\n[]", 0);
-    //std::cout << response << std::endl;
     if(tmp != std::string::npos)
     {
-        //std::cout << "nic\n";
         return true;
     }
-   // std::cout << "nova\n";
     return false;
 }
 
@@ -195,14 +183,12 @@ void SecureSocket::EchoMessages()
         response = response.substr(pos);
         pos = ParseOutLastMessageUsername();
         response = response.substr(pos);
-        //std::cout << username << std::endl;
 
         if (username.find("bot") != std::string::npos)
         {
             ParseOutLastMessageID();
             if ( lastPos == std::string::npos)
             {
-                //std::cout << response << std::endl;
                 break;
             }
             response = response.substr(lastPos);
@@ -216,13 +202,11 @@ void SecureSocket::EchoMessages()
 
         if ( verbose )
         {
-            std::cout << "echo: " << username << " - " << content  << std::endl;
+            std::cout << "isa-bot - " << username << ": " << content  << std::endl;
         }
         ParseOutLastMessageID();
         if ( lastPos == std::string::npos)
         {
-
-            //std::cout << response << std::endl;
             break;
         }
         response = response.substr(lastPos);
@@ -236,7 +220,6 @@ void SecureSocket::SendEchoRequest()
     int contentLength = 38 + content.size() + username.size();
 
     std::string echoRequest = "POST /api/channels/" + channelID + "/messages HTTP/1.1\nHost: discord.com\nConnection: close\nContent-Type: application/json\nContent-Length: " + std::to_string(contentLength) + "\nAuthorization: Bot " + token + "\n\n{\"content\": \"echo: " + username + " - " + content + "\", \"tts\": false}";
-    //std::cout << echoRequest <<  std::endl;
 
     if( BIO_puts(bio, echoRequest.c_str()) < 1 )
     {

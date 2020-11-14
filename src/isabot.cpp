@@ -13,7 +13,11 @@ ISAbot::~ISAbot()
 
 void ISAbot::printHelp()
 {
-    std::cout << "I am very helpful help." << std::endl;
+    std::cout << "Usage: isa-bot [-h|--help] [-v|--verbose] -t <bot_access_token>" << std::endl;
+    std::cout << "-h|--help : Prints out this help end exits." << std::endl;
+    std::cout << "-v|--verbose : Prints out log of echoed messages." << std::endl;
+    std::cout << "-t <bot_access_token> : Access token for the bot to communicate with discord api server." << std::endl;
+    std::cout << "Help is printed if no option is used." << std::endl;
 }
 
 void ISAbot::setUpOptions()
@@ -45,14 +49,16 @@ void ISAbot::checkForToken()
         throw CustomException("Token can not be empty.", MISSING_TOKEN);
     }
 }
+
 void ISAbot::run()
 {
     setUpOptions();
-
     checkForHelp();
     checkForToken();
+
     SecureSocket soc(opt->getToken(), opt->verboseIsSet());
-    
+
+
     soc.SetUp();
     soc.SendRequestForGuilds();
     soc.response = soc.ReceiveResponse();
@@ -74,7 +80,6 @@ void ISAbot::run()
     soc.CheckResponseForOK();
     soc.lastMessageID = soc.ParseOutLastMessageID();
 
-    //main loop
     while (true)
     {
         soc.SetUp();

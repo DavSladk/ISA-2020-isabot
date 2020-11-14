@@ -22,6 +22,7 @@ class ISAbot
         void checkForHelp();
         void setUpOptions();
         void checkForToken();
+
 };
 
 #endif //XSLADK07_ISABOT_H
