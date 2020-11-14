@@ -227,11 +227,6 @@ void SecureSocket::SendEchoRequest()
     }
 };
 
-SecureSocket::~SecureSocket()
-{
-
-}
-
 void SecureSocket::clean()
 {
     SSL_CTX_free(ctx);

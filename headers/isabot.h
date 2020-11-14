@@ -9,7 +9,6 @@ class ISAbot
 {
     public:
         ISAbot(int argc, char** argv);
-        ~ISAbot();
 
         void printHelp();
         void run();
