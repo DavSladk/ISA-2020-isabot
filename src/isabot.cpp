@@ -51,33 +51,47 @@ void ISAbot::run()
 
     checkForHelp();
     checkForToken();
-    SecureSocket soc(opt->getToken());
+    SecureSocket soc(opt->getToken(), opt->verboseIsSet());
     
     soc.SetUp();
     soc.SendRequestForGuilds();
-    soc.ReceiveResponse();
+    soc.response = soc.ReceiveResponse();
     soc.clean();
     soc.CheckResponseForOK();
     soc.ParseOutGuildID();
 
     soc.SetUp();
     soc.SendRequestForGuildChannels();
-    soc.ReceiveResponse();
+    soc.response = soc.ReceiveResponse();
     soc.clean();
     soc.CheckResponseForOK();
     soc.ParseOutChannelID();
 
     soc.SetUp();
     soc.SendRequestForLastMessage();
-    soc.ReceiveResponse();
+    soc.response = soc.ReceiveResponse();
     soc.clean();
     soc.CheckResponseForOK();
-    soc.ParseOutLastMessageID();
+    soc.lastMessageID = soc.ParseOutLastMessageID();
 
-    soc.SetUp();
-    soc.SendRequestForLastMessages();
-    soc.ReceiveResponse();
-    soc.clean();
-    soc.CheckResponseForOK();
+    //main loop
+    while (true)
+    {
+        soc.SetUp();
+        soc.SendRequestForLastMessages();
+        soc.response = soc.ReceiveResponse();
+        soc.clean();
+        soc.CheckResponseForOK();
+
+        if ( soc.CheckForNoNewMessages() )
+        {
+            ;
+        }
+        else
+        {
+            soc.EchoMessages();
+        }
+        std::this_thread::sleep_for (std::chrono::seconds(5));
+    }
 
 }
