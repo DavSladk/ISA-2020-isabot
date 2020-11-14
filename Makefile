@@ -14,7 +14,7 @@ run:
 	./build/isabot
 
 clean:
-	rm ./build isabot xsladk07.tar -fr
+	rm -fr ./build isabot xsladk07.tar
 
 test:
 	echo "no tests"
