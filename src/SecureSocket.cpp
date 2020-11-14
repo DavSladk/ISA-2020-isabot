@@ -227,6 +227,13 @@ void SecureSocket::SendEchoRequest()
     }
 };
 
+void SecureSocket::CutToContent()
+{
+    std::string::size_type tmp;
+    tmp = response.find("\r\n\r\n");
+    response = response.substr(tmp);
+}
+
 void SecureSocket::clean()
 {
     SSL_CTX_free(ctx);

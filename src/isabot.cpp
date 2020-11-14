@@ -65,6 +65,7 @@ void ISAbot::run()
     soc.response = soc.ReceiveResponse();
     soc.clean();
     soc.CheckResponseForOK();
+    soc.CutToContent();
     soc.ParseOutGuildID();
 
     soc.SetUp();
@@ -72,6 +73,7 @@ void ISAbot::run()
     soc.response = soc.ReceiveResponse();
     soc.clean();
     soc.CheckResponseForOK();
+    soc.CutToContent();
     soc.ParseOutChannelID();
 
     soc.SetUp();
@@ -79,6 +81,7 @@ void ISAbot::run()
     soc.response = soc.ReceiveResponse();
     soc.clean();
     soc.CheckResponseForOK();
+    soc.CutToContent();
     soc.lastMessageID = soc.ParseOutLastMessageID();
 
     while (true)
@@ -88,6 +91,7 @@ void ISAbot::run()
         soc.response = soc.ReceiveResponse();
         soc.clean();
         soc.CheckResponseForOK();
+        soc.CutToContent();
 
         if ( soc.CheckForNoNewMessages() )
         {

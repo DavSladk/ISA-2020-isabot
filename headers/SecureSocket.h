@@ -31,6 +31,7 @@ class SecureSocket
         void EchoMessages();
         std::string::size_type ParseOutLastMessageContent();
         std::string::size_type ParseOutLastMessageUsername();
+        void CutToContent();
         void SendEchoRequest();
         std::string response = "";
         std::string lastMessageID;
