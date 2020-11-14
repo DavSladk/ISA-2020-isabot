@@ -44,7 +44,7 @@ void SecureSocket::SetUp()
 
 void SecureSocket::SendRequestForGuilds()
 {
-    std::string guildRequest = "GET /api/users/@me/guilds HTTP/1.1\nHost: discord.com\nConnection: close\nAuthorization: Bot " + token + "\n\n";
+    std::string guildRequest = "GET /api/users/@me/guilds HTTP/1.1\r\nHost: discord.com\r\nConnection: close\r\nAuthorization: Bot " + token + "\r\n\r\n";
     if( BIO_puts(bio, guildRequest.c_str()) < 1 )
     {
         throw CustomException("Sending request for list of guilds failed.", TEMP);
@@ -87,7 +87,7 @@ void SecureSocket::ParseOutGuildID()
 
 void SecureSocket::SendRequestForGuildChannels()
 {
-    std::string channelsRequest = "GET /api/guilds/" + guildID + "/channels HTTP/1.1\nHost: discord.com\nConnection: close\nAuthorization: Bot " + token + "\n\n";
+    std::string channelsRequest = "GET /api/guilds/" + guildID + "/channels HTTP/1.1\r\nHost: discord.com\r\nConnection: close\r\nAuthorization: Bot " + token + "\r\n\r\n";
     if( BIO_puts(bio, channelsRequest.c_str()) < 1 )
     {
         throw CustomException("Sending request for list of guild channels.", TEMP);
@@ -107,7 +107,7 @@ void SecureSocket::ParseOutChannelID()
 
 void SecureSocket::SendRequestForLastMessage()
 {
-    std::string channelRequest = "GET /api/channels/" + channelID + "/messages?limit=1 HTTP/1.1\nHost: discord.com\nConnection: close\nAuthorization: Bot " + token + "\n\n";
+    std::string channelRequest = "GET /api/channels/" + channelID + "/messages?limit=1 HTTP/1.1\r\nHost: discord.com\r\nConnection: close\r\nAuthorization: Bot " + token + "\r\n\r\n";
     if( BIO_puts(bio, channelRequest.c_str()) < 1 )
     {
         throw CustomException("Sending request for list of guild channels.", TEMP);
@@ -132,7 +132,7 @@ std::string SecureSocket::ParseOutLastMessageID()
 
 void SecureSocket::SendRequestForLastMessages()
 {
-    std::string messagesRequest = "GET /api/channels/" + channelID + "/messages?after=" + lastMessageID + "&limit=100 HTTP/1.1\nHost: discord.com\nConnection: close\nAuthorization: Bot " + token + "\n\n";
+    std::string messagesRequest = "GET /api/channels/" + channelID + "/messages?after=" + lastMessageID + "&limit=100 HTTP/1.1\r\nHost: discord.com\r\nConnection: close\r\nAuthorization: Bot " + token + "\r\n\r\n";
     if( BIO_puts(bio, messagesRequest.c_str()) < 1 )
     {
         throw CustomException("Sending request for list of guild channels.", TEMP);
@@ -219,7 +219,7 @@ void SecureSocket::SendEchoRequest()
 {
     int contentLength = 38 + content.size() + username.size();
 
-    std::string echoRequest = "POST /api/channels/" + channelID + "/messages HTTP/1.1\nHost: discord.com\nConnection: close\nContent-Type: application/json\nContent-Length: " + std::to_string(contentLength) + "\nAuthorization: Bot " + token + "\n\n{\"content\": \"echo: " + username + " - " + content + "\", \"tts\": false}";
+    std::string echoRequest = "POST /api/channels/" + channelID + "/messages HTTP/1.1\r\nHost: discord.com\r\nConnection: close\r\nContent-Type: application/json\r\nContent-Length: " + std::to_string(contentLength) + "\r\nAuthorization: Bot " + token + "\r\n\r\n{\"content\": \"echo: " + username + " - " + content + "\", \"tts\": false}";
 
     if( BIO_puts(bio, echoRequest.c_str()) < 1 )
     {
