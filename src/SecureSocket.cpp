@@ -105,6 +105,10 @@ void SecureSocket::ParseOutChannelID()
     std::string tmp;
 
     pos = response.find(channelName, 0);
+    if ( pos == std::string::npos )
+    {
+        throw CustomException("Response does not have channel id.", TEMP);
+    }
     tmp = response.substr(0, pos);
     pos = tmp.rfind(idPrefix, tmp.size());
     channelID = tmp.substr(pos + idPrefix.size(), ID_SIZE);
@@ -125,6 +129,10 @@ std::string SecureSocket::ParseOutLastMessageID()
     std::string tmp;
 
     pos = response.find(idPrefix, 0);
+    if ( pos == std::string::npos )
+    {
+        throw CustomException("Response does not have last message id.", TEMP);
+    }
     lastPos = pos;
     if (pos == std::string::npos)
     {
@@ -160,6 +168,10 @@ std::string::size_type SecureSocket::ParseOutLastMessageContent()
     std::string::size_type tmp1, tmp2;
 
     tmp1 = response.find(contentPrefix);
+    if ( tmp1 == std::string::npos )
+    {
+        throw CustomException("Response does not have message content.", TEMP);
+    }
     tmp2 = response.find("\"", tmp1 + contentPrefix.size());
     content = response.substr(tmp1 + contentPrefix.size(), tmp2 - tmp1 - contentPrefix.size());
 
@@ -171,6 +183,10 @@ std::string::size_type SecureSocket::ParseOutLastMessageUsername()
     std::string::size_type tmp1, tmp2;
 
     tmp1 = response.find(usernamePrefix);
+    if ( tmp1 == std::string::npos )
+    {
+        throw CustomException("Response does not have author of last message.", TEMP);
+    }
     tmp2 = response.find("\"", tmp1 + usernamePrefix.size());
     username = response.substr(tmp1 + usernamePrefix.size(), tmp2 - tmp1 - usernamePrefix.size());
 
