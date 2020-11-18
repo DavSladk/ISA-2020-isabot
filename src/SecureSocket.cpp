@@ -129,10 +129,6 @@ std::string SecureSocket::ParseOutLastMessageID()
     std::string tmp;
 
     pos = response.find(idPrefix, 0);
-    if ( pos == std::string::npos )
-    {
-        throw CustomException("Response does not have last message id.", TEMP);
-    }
     lastPos = pos;
     if (pos == std::string::npos)
     {
