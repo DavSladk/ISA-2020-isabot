@@ -1,3 +1,8 @@
+/**
+ * @file Options.cpp
+ * @author David Sladký
+ * @brief Implementation of Options.h, class for parsing command line parametrs.
+ */
 #include "Options.h"
 
 Options::Options(int argc, char** argv)

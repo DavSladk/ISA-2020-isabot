@@ -1,3 +1,8 @@
+/**
+ * @file main.cpp
+ * @author David Sladký
+ * @brief Main.
+ */
 #include <iostream>
 #include "isabot.h"
 

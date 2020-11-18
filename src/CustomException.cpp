@@ -1,3 +1,8 @@
+/**
+ * @file CustomExceotion.cpp
+ * @author David Sladký
+ * @brief Implementation of CustomException.h, class to be thrown.
+ */
 #include "CustomException.h"
 
 CustomException::CustomException(const std::string message, const ErrorCodes code)

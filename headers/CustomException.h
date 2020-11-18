@@ -1,10 +1,16 @@
+/**
+ * @file CustomException.h
+ * @author David Sladký
+ * @brief Declaration of CustomException class. Class to be thrown.
+ */
 #ifndef XSLADK07_CUSTOMEXCEPTION_H
 #define XSLADK07_CUSTOMEXCEPTION_H
 
-#include <exception>
 #include <string>
 
-// types of possible custom exceptions
+/**
+ * Enum of error codes
+ */
 enum ErrorCodes
 {
     TEMP = 1,
@@ -16,12 +22,24 @@ enum ErrorCodes
     MISSING_TOKEN
 };
 
-// custom exception class
+/**
+ * Class to be thrown when error occures. 
+ */
 class CustomException
 {
     public:
+        /**
+         * A constructor.
+         * Initializes error message and code of the class.
+         */
         CustomException(const std::string message, const ErrorCodes code);
+        /**
+         * @return Error code.
+         */
         ErrorCodes Code();
+        /**
+         * @return Error Message.
+         */
         std::string Message();
 
     private:

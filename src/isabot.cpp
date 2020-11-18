@@ -1,3 +1,9 @@
+/**
+ * @file isabot.cpp
+ * @author David Sladký
+ * @brief Implementation of isabot.h, main execution flow control class.
+ */
+
 #include "isabot.h"
 
 ISAbot::ISAbot(int argc, char** argv)

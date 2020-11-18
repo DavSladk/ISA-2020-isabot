@@ -1,3 +1,8 @@
+/**
+ * @file SecureSocket.cpp
+ * @author David Sladký
+ * @brief Implementation of SecureSocket.h, class for sending, recieving and manipulaiton of data.
+ */
 #include "SecureSocket.h"
 
 SecureSocket::SecureSocket(std::string token, bool verbose)
@@ -11,7 +16,7 @@ void SecureSocket::SetUp()
     SSL_library_init();
     OpenSSL_add_all_algorithms();
     
-    method = TLS_client_method();
+    method = TLSv1_2_client_method();
     if ( method == NULL )
     {
         throw CustomException("Obtaining TLS method failed.", TEMP);
@@ -218,7 +223,7 @@ void SecureSocket::EchoMessages()
 
 void SecureSocket::SendEchoRequest()
 {
-    int contentLength = 38 + content.size() + username.size();
+    int contentLength = BASE_JSON_MESSAGE_CONTENT_SIZE + content.size() + username.size();
 
     std::string echoRequest = "POST /api/channels/" + channelID + "/messages HTTP/1.1\r\nHost: discord.com\r\nConnection: close\r\nContent-Type: application/json\r\nContent-Length: " + std::to_string(contentLength) + "\r\nAuthorization: Bot " + token + "\r\n\r\n{\"content\": \"echo: " + username + " - " + content + "\", \"tts\": false}";
 
